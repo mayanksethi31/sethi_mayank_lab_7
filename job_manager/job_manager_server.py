@@ -16,7 +16,7 @@ def not_found(e):
 def count():
     try: 
         data = request.get_json()
-        if data['text']:
+        if 'text' in data:
             text = data["text"]
             result = word_length_blob.delay(text)
             return json.dumps({"id": result.id}), 200
@@ -41,7 +41,7 @@ def check_task(task_id):
     return False
 
 #Checking the status of an id.
-@app.route('/status/<id>', methods = ['GET'])
+@app.route('/status/<string:id>', methods = ['GET'])
 def status(id):
     if id is None:
         return "Invalid Url input. Please give some task ID." , 400
